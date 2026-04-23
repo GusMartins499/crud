@@ -2,11 +2,12 @@
 	"name": "crud",
 	"version": "1.0.0",
 	"main": "app.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "db:migrate": "drizzle-kit migrate"
-  },
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/server.ts",
+		"db:migrate": "drizzle-kit migrate",
+		"db:seed": "tsx src/db/seed.ts"
+	},
 	"license": "MIT",
 	"packageManager": "pnpm@10.12.4",
 	"devDependencies": {
