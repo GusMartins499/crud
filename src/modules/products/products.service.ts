@@ -7,6 +7,16 @@ import type {
   TUpdateProductsSchema,
 } from './products-types.js'
 
+export async function findProductById(id: string) {
+  const [product] = await db
+    .select()
+    .from(productsTable)
+    .where(eq(productsTable.id, id))
+    .limit(1)
+
+  return product
+}
+
 export async function createProduct({ name, price }: TCreateProductsSchema) {
   const [product] = await db
     .insert(productsTable)
