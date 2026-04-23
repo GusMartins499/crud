@@ -43,7 +43,7 @@ export async function getProducts({
   const products = await db
     .select()
     .from(productsTable)
-    .orderBy(asc(productsTable.name))
+    .orderBy(asc(productsTable.name), asc(productsTable.id))
     .limit(perPage)
     .offset(offset)
 
