@@ -8,11 +8,14 @@ import {
 import { createProductsSchema, updateProductsSchema } from './products-types.js'
 
 export async function updateProductHandler(
-  request: FastifyRequest,
+  request: FastifyRequest<{
+    Params: { id: string }
+    Body: unknown
+  }>,
   reply: FastifyReply,
 ) {
   const { data, error } = updateProductsSchema.safeParse(request.body)
-  const { id } = request.params as { id: string }
+  const { id } = request.params
 
   if (!data) {
     return reply.status(400).send(error)
