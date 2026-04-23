@@ -33,7 +33,7 @@ export async function updateProduct(
     .update(productsTable)
     .set({
       name,
-      price_cents: price ? priceInCents(price) : undefined,
+      price_cents: price !== undefined ? priceInCents(price) : undefined,
     })
     .where(eq(productsTable.id, id))
     .returning()
