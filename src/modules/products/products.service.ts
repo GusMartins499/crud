@@ -1,15 +1,28 @@
+import { eq } from 'drizzle-orm'
 import { db } from '../../db/connection.js'
 import { productsTable } from '../../db/schema/index.js'
-import type { TCreateProductsSchema } from './products-types.js'
+import { priceInCents } from '../../utils/price-in-cents.js'
+import type {
+  TCreateProductSchema,
+  TUpdateProductSchema,
+} from './products-types.js'
 
-export async function createProduct({ name, price }: TCreateProductsSchema) {
-  const priceInCents = Math.round(price * 100)
+export async function findProductById(id: string) {
+  const [product] = await db
+    .select()
+    .from(productsTable)
+    .where(eq(productsTable.id, id))
+    .limit(1)
 
+  return product
+}
+
+export async function createProduct({ name, price }: TCreateProductSchema) {
   const [product] = await db
     .insert(productsTable)
     .values({
       name,
-      price_cents: priceInCents,
+      price_cents: priceInCents(price),
     })
     .returning()
 
@@ -20,4 +33,20 @@ export async function getProducts() {
   const products = await db.select().from(productsTable)
 
   return products
+}
+
+export async function updateProduct(
+  id: string,
+  { name, price }: TUpdateProductSchema,
+) {
+  const [product] = await db
+    .update(productsTable)
+    .set({
+      name,
+      price_cents: price !== undefined ? priceInCents(price) : undefined,
+    })
+    .where(eq(productsTable.id, id))
+    .returning()
+
+  return product
 }
