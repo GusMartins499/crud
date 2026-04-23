@@ -1,12 +1,17 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { productToDto } from './products.dto.js'
+import { productsToPaginatedDto, productToDto } from './products.dto.js'
 import {
   createProduct,
   deleteProduct,
   getProducts,
   updateProduct,
 } from './products.service.js'
-import { createProductSchema, updateProductSchema } from './products-types.js'
+import {
+  createProductSchema,
+  getProductsQuerySchema,
+  type TGetProductsQuerySchema,
+  updateProductSchema,
+} from './products-types.js'
 
 export async function deleteProductHandler(
   request: FastifyRequest,
@@ -60,11 +65,18 @@ export async function createProductHandler(
 }
 
 export async function getProductsHandler(
-  _request: FastifyRequest,
+  request: FastifyRequest<{
+    Querystring: TGetProductsQuerySchema
+  }>,
   reply: FastifyReply,
 ) {
-  const products = await getProducts()
-  const productsDto = products.map(productToDto)
+  const { data, error } = getProductsQuerySchema.safeParse(request.query)
 
-  return reply.send(productsDto)
+  if (!data) {
+    return reply.status(400).send(error)
+  }
+
+  const { products, meta } = await getProducts(data)
+
+  return reply.send(productsToPaginatedDto(products, meta))
 }

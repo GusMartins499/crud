@@ -1,5 +1,10 @@
 import { formatPrice, priceFromCents } from '../../utils/price-in-cents.js'
-import type { TDrizzleProduct, TProductDTO } from './products-types.js'
+import type {
+  TDrizzleProduct,
+  TPaginatedProductsDTO,
+  TPaginationMetaDTO,
+  TProductDTO,
+} from './products-types.js'
 
 export function productToDto(product: TDrizzleProduct): TProductDTO {
   return {
@@ -7,5 +12,15 @@ export function productToDto(product: TDrizzleProduct): TProductDTO {
     name: product.name,
     price: priceFromCents(product.price_cents),
     formatPrice: formatPrice(product.price_cents),
+  }
+}
+
+export function productsToPaginatedDto(
+  products: TDrizzleProduct[],
+  meta: TPaginationMetaDTO,
+): TPaginatedProductsDTO {
+  return {
+    data: products.map(productToDto),
+    meta,
   }
 }

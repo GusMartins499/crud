@@ -1,9 +1,10 @@
-import { eq } from 'drizzle-orm'
+import { asc, count, eq } from 'drizzle-orm'
 import { db } from '../../db/connection.js'
 import { productsTable } from '../../db/schema/index.js'
 import { priceInCents } from '../../utils/price-in-cents.js'
 import type {
   TCreateProductSchema,
+  TGetProductsQuerySchema,
   TUpdateProductSchema,
 } from './products-types.js'
 
@@ -33,10 +34,30 @@ export async function createProduct({ name, price }: TCreateProductSchema) {
   return product
 }
 
-export async function getProducts() {
-  const products = await db.select().from(productsTable)
+export async function getProducts({
+  page,
+  perPage,
+}: TGetProductsQuerySchema) {
+  const offset = (page - 1) * perPage
 
-  return products
+  const products = await db
+    .select()
+    .from(productsTable)
+    .orderBy(asc(productsTable.name), asc(productsTable.id))
+    .limit(perPage)
+    .offset(offset)
+
+  const [{ total }] = await db.select({ total: count() }).from(productsTable)
+
+  return {
+    products,
+    meta: {
+      page,
+      perPage,
+      total,
+      totalPages: Math.ceil(total / perPage),
+    },
+  }
 }
 
 export async function updateProduct(

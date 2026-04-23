@@ -6,6 +6,11 @@ export const createProductSchema = z.object({
   price: z.coerce.number().positive(),
 })
 
+export const getProductsQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  perPage: z.coerce.number().int().min(1).max(100).default(10),
+})
+
 export const updateProductSchema = z
   .object({
     name: z.string().min(4).optional(),
@@ -22,6 +27,20 @@ export type TProductDTO = {
   name: string
   price: number
   formatPrice: string
+}
+
+export type TGetProductsQuerySchema = z.infer<typeof getProductsQuerySchema>
+
+export type TPaginationMetaDTO = {
+  page: number
+  perPage: number
+  total: number
+  totalPages: number
+}
+
+export type TPaginatedProductsDTO = {
+  data: TProductDTO[]
+  meta: TPaginationMetaDTO
 }
 
 export type TCreateProductSchema = z.infer<typeof createProductSchema>
