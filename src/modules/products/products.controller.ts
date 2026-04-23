@@ -1,7 +1,28 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { productToDto } from './products.dto.js'
-import { createProduct, getProducts } from './products.service.js'
-import { createProductsSchema } from './products-types.js'
+import {
+  createProduct,
+  getProducts,
+  updateProduct,
+} from './products.service.js'
+import { createProductsSchema, updateProductsSchema } from './products-types.js'
+
+export async function updateProductHandler(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const { data, error } = updateProductsSchema.safeParse(request.body)
+  const { id } = request.params as { id: string }
+
+  if (!data) {
+    return reply.status(400).send(error)
+  }
+
+  const { name, price } = data
+  const product = await updateProduct(id, { name, price })
+
+  return reply.status(201).send(productToDto(product))
+}
 
 export async function createProductHandler(
   request: FastifyRequest,

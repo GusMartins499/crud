@@ -6,6 +6,11 @@ export const createProductsSchema = z.object({
   price: z.coerce.number().positive(),
 })
 
+export const updateProductsSchema = z.object({
+  name: z.string().min(4).optional(),
+  price: z.coerce.number().positive().optional(),
+})
+
 export type TDrizzleProduct = typeof productsTable.$inferSelect
 
 export type TProductDTO = {
@@ -15,3 +20,4 @@ export type TProductDTO = {
 }
 
 export type TCreateProductsSchema = z.infer<typeof createProductsSchema>
+export type TUpdateProductsSchema = z.infer<typeof updateProductsSchema>
