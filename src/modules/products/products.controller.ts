@@ -6,7 +6,7 @@ import {
   getProducts,
   updateProduct,
 } from './products.service.js'
-import { createProductsSchema, updateProductsSchema } from './products-types.js'
+import { createProductSchema, updateProductSchema } from './products-types.js'
 
 export async function updateProductHandler(
   request: FastifyRequest<{
@@ -15,7 +15,7 @@ export async function updateProductHandler(
   }>,
   reply: FastifyReply,
 ) {
-  const { data, error } = updateProductsSchema.safeParse(request.body)
+  const { data, error } = updateProductSchema.safeParse(request.body)
   const { id } = request.params
 
   if (!data) {
@@ -38,7 +38,7 @@ export async function createProductHandler(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { data, error } = createProductsSchema.safeParse(request.body)
+  const { data, error } = createProductSchema.safeParse(request.body)
 
   if (!data) {
     return reply.status(400).send(error)

@@ -3,8 +3,8 @@ import { db } from '../../db/connection.js'
 import { productsTable } from '../../db/schema/index.js'
 import { priceInCents } from '../../utils/price-in-cents.js'
 import type {
-  TCreateProductsSchema,
-  TUpdateProductsSchema,
+  TCreateProductSchema,
+  TUpdateProductSchema,
 } from './products-types.js'
 
 export async function findProductById(id: string) {
@@ -17,7 +17,7 @@ export async function findProductById(id: string) {
   return product
 }
 
-export async function createProduct({ name, price }: TCreateProductsSchema) {
+export async function createProduct({ name, price }: TCreateProductSchema) {
   const [product] = await db
     .insert(productsTable)
     .values({
@@ -37,7 +37,7 @@ export async function getProducts() {
 
 export async function updateProduct(
   id: string,
-  { name, price }: TUpdateProductsSchema,
+  { name, price }: TUpdateProductSchema,
 ) {
   const [product] = await db
     .update(productsTable)
