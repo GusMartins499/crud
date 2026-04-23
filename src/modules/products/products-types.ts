@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { productsTable } from '../../db/schema/users.js'
+import type { productsTable } from '../../db/schema/products-table.js'
 
 export const createProductSchema = z.object({
   name: z.string().min(4),
