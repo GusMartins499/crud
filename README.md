@@ -39,7 +39,14 @@ Create a `.env` file:
 ```env
 DB_FILE_NAME=file:local.db
 ```
-Then run
+
+Run the database migrations:
+
+```bash
+pnpm db:migrate
+```
+
+Then start the server:
 
 ```bash
 pnpm dev
