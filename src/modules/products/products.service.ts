@@ -15,3 +15,9 @@ export async function createProduct({ name, price }: TCreateProductsSchema) {
 
   return product
 }
+
+export async function getProducts() {
+  const products = await db.select().from(productsTable)
+
+  return products
+}
