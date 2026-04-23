@@ -2,7 +2,6 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { productToDto } from './products.dto.js'
 import {
   createProduct,
-  findProductById,
   getProducts,
   updateProduct,
 } from './products.service.js'
@@ -22,14 +21,12 @@ export async function updateProductHandler(
     return reply.status(400).send(error)
   }
 
-  const productExists = await findProductById(id)
-
-  if (!productExists) {
-    return reply.status(404).send({ message: 'Product not found' })
-  }
-
   const { name, price } = data
   const product = await updateProduct(id, { name, price })
+
+  if (!product) {
+    return reply.status(404).send({ message: 'Product not found' })
+  }
 
   return reply.status(200).send(productToDto(product))
 }
