@@ -34,6 +34,13 @@ pnpm install
 
 ## Executing
 
+Create a `.env` file:
+
+```env
+DB_FILE_NAME=file:local.db
+```
+Then run
+
 ```bash
 pnpm dev
 ```
