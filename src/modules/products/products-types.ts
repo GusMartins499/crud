@@ -6,10 +6,14 @@ export const createProductsSchema = z.object({
   price: z.coerce.number().positive(),
 })
 
-export const updateProductsSchema = z.object({
-  name: z.string().min(4).optional(),
-  price: z.coerce.number().positive().optional(),
-})
+export const updateProductsSchema = z
+  .object({
+    name: z.string().min(4).optional(),
+    price: z.coerce.number().positive().optional(),
+  })
+  .refine(({ name, price }) => name !== undefined || price !== undefined, {
+    error: 'At least one field (name or price) must be provided',
+  })
 
 export type TDrizzleProduct = typeof productsTable.$inferSelect
 
