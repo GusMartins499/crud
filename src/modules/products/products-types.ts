@@ -21,6 +21,7 @@ export type TProductDTO = {
   id: string
   name: string
   price: number
+  formatPrice: string
 }
 
 export type TCreateProductSchema = z.infer<typeof createProductSchema>
