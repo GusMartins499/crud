@@ -2,10 +2,22 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { productToDto } from './products.dto.js'
 import {
   createProduct,
+  deleteProduct,
   getProducts,
   updateProduct,
 } from './products.service.js'
 import { createProductSchema, updateProductSchema } from './products-types.js'
+
+export async function deleteProductHandler(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const { id } = request.params as { id: string }
+
+  await deleteProduct(id)
+
+  return reply.status(204).send()
+}
 
 export async function updateProductHandler(
   request: FastifyRequest<{

@@ -17,6 +17,10 @@ export async function findProductById(id: string) {
   return product
 }
 
+export async function deleteProduct(id: string) {
+  await db.delete(productsTable).where(eq(productsTable.id, id))
+}
+
 export async function createProduct({ name, price }: TCreateProductSchema) {
   const [product] = await db
     .insert(productsTable)
