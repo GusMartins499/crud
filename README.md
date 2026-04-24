@@ -46,6 +46,12 @@ Run the database migrations:
 pnpm db:migrate
 ```
 
+Run the database seed:
+
+```bash
+pnpm db:seed
+```
+
 Then start the server:
 
 ```bash
