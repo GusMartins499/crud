@@ -1,4 +1,5 @@
-export const priceInCents = (price: number) => Math.round(price * 100)
+export const priceInCents = (price: number) =>
+  Math.round((price + Number.EPSILON) * 100)
 
 export const priceFromCents = (priceCents: number) => priceCents / 100
 
