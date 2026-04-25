@@ -4,8 +4,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+  permisisons:
+    contents: read
+
 jobs:
   unit-tests:
+    timeout-minutes: 10
 
     runs-on: ubuntu-latest
 
