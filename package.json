@@ -1,27 +1,29 @@
 {
-	"name": "crud",
-	"version": "1.0.0",
-	"main": "app.ts",
-	"type": "module",
-	"scripts": {
-		"dev": "tsx watch src/server.ts",
-		"db:migrate": "drizzle-kit migrate",
-		"db:seed": "tsx src/db/seed.ts"
-	},
-	"license": "MIT",
-	"packageManager": "pnpm@10.12.4",
-	"devDependencies": {
-		"@biomejs/biome": "2.4.12",
-		"@types/node": "^25.6.0",
-		"drizzle-kit": "^0.31.10",
-		"tsx": "^4.21.0",
-		"typescript": "^6.0.3"
-	},
-	"dependencies": {
-		"@libsql/client": "^0.17.2",
-		"dotenv": "^17.4.2",
-		"drizzle-orm": "^0.45.2",
-		"fastify": "^5.8.5",
-		"zod": "^4.3.6"
-	}
+  "name": "crud",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx src/db/seed.ts",
+    "test:unit": "vitest run --dir tests/unit"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@biomejs/biome": "2.4.12",
+    "@types/node": "^25.6.0",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.2",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "fastify": "^5.8.5",
+    "zod": "^4.3.6"
+  }
 }
