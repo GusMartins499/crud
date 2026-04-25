@@ -48,18 +48,20 @@ describe('ProductDTO', () => {
     const paginatedDto = productsToPaginatedDto(products, meta)
 
     expect(paginatedDto.meta).toEqual(meta)
-
     expect(paginatedDto.data).toHaveLength(2)
 
-    expect(paginatedDto.data[0].id).toBe('1')
-    expect(paginatedDto.data[0].name).toBe('Notebook')
-    expect(paginatedDto.data[0].price).toBe(19.99)
-    expect(paginatedDto.data[0].formatPrice).toContain('19,99')
+    const expected = [
+      { id: '1', name: 'Notebook', price: 19.99, formatted: '19,99' },
+      { id: '2', name: 'Pen', price: 2.99, formatted: '2,99' },
+    ]
 
-    expect(paginatedDto.data[1].id).toBe('2')
-    expect(paginatedDto.data[1].name).toBe('Pen')
-    expect(paginatedDto.data[1].price).toBe(2.99)
-    expect(paginatedDto.data[1].formatPrice).toContain('2,99')
+    expected.forEach((row, index) => {
+      const item = paginatedDto.data[index]
+      expect(item.id).toBe(row.id)
+      expect(item.name).toBe(row.name)
+      expect(item.price).toBe(row.price)
+      expect(item.formatPrice).toContain(row.formatted)
+    })
   })
 
   it('should paginate product list', () => {
