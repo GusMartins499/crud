@@ -7,8 +7,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: ['tests/**/*.{test,spec}.ts'],
-      exclude: ['src/**/*.d.ts'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/*.d.ts', 'tests/**/*.{test,spec}.ts'],
     },
   },
 })
