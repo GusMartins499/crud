@@ -1,0 +1,33 @@
+name: Integration Tests CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  integration-tests:
+    timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+    - uses: actions/checkout@v6
+    
+    - name: setup pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10.12.4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm run test:integration
