@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  unit-tests:
+  integration-tests:
     timeout-minutes: 10
 
     runs-on: ubuntu-latest
