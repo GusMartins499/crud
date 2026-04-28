@@ -2,6 +2,8 @@ import fastifySwagger from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import fastify from 'fastify'
 import {
+  hasZodFastifySchemaValidationErrors,
+  isResponseSerializationError,
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
@@ -41,6 +43,20 @@ app.get('/health', async (_request, reply) => {
 app.register(productsRoutes)
 
 app.setErrorHandler((error, _request, reply) => {
+  if (hasZodFastifySchemaValidationErrors(error)) {
+    return reply.status(400).send({
+      message: 'Validation error',
+      issues: error.validation,
+    })
+  }
+
+  if (isResponseSerializationError(error)) {
+    return reply.status(500).send({
+      message: 'Response serialization error',
+      issues: error.cause.issues,
+    })
+  }
+
   if (error instanceof ZodError) {
     return reply.status(400).send({
       message: 'Validation error',

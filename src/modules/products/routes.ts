@@ -27,12 +27,6 @@ export function productsRoutes(app: FastifyTypedInstance) {
         body: createProductSchema,
         response: {
           201: productResponseSchema,
-          400: z
-            .object({
-              message: z.string(),
-              issues: z.string().array(),
-            })
-            .describe('Validation error response'),
         },
       },
     },
@@ -48,12 +42,6 @@ export function productsRoutes(app: FastifyTypedInstance) {
         querystring: getProductsQuerySchema,
         response: {
           200: paginatedProductsResponseSchema,
-          400: z
-            .object({
-              message: z.string(),
-              issues: z.string().array(),
-            })
-            .describe('Validation error response'),
         },
       },
     },
@@ -70,12 +58,6 @@ export function productsRoutes(app: FastifyTypedInstance) {
         body: updateProductSchema,
         response: {
           200: productResponseSchema,
-          400: z
-            .object({
-              message: z.string(),
-              issues: z.string().array(),
-            })
-            .describe('Validation error response'),
           404: z
             .object({
               message: z.literal('Product not found'),
