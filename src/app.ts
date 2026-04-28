@@ -1,3 +1,4 @@
+import fastifyCors from '@fastify/cors'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
@@ -35,6 +36,11 @@ app.register(fastifySwaggerUi, {
       theme: 'tomorrow-night',
     },
   },
+})
+
+app.register(fastifyCors, {
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 })
 
 app.get('/health', async (_request, reply) => {
