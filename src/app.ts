@@ -8,6 +8,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { ZodError } from 'zod'
+import packageJson from '../package.json' with { type: 'json' }
 import { productsRoutes } from './modules/products/routes.js'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -19,7 +20,7 @@ app.register(fastifySwagger, {
   openapi: {
     info: {
       title: 'Vitatrack API',
-      version: '1.0.0',
+      version: packageJson.version,
     },
   },
   transform: jsonSchemaTransform,

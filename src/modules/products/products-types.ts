@@ -1,6 +1,29 @@
 import { z } from 'zod'
 import type { productsTable } from '../../db/schema/products-table.js'
 
+export const productIdParamsSchema = z.object({
+  id: z.string().describe('Product identifier'),
+})
+
+export const productResponseSchema = z.object({
+  id: z.string().describe('Product identifier'),
+  name: z.string().describe('Product name'),
+  price: z.number().describe('Product price in BRL'),
+  formatPrice: z.string().describe('Formatted product price'),
+})
+
+export const paginationMetaSchema = z.object({
+  page: z.number().int().describe('Current page'),
+  perPage: z.number().int().describe('Items per page'),
+  total: z.number().int().describe('Total number of products'),
+  totalPages: z.number().int().describe('Total number of pages'),
+})
+
+export const paginatedProductsResponseSchema = z.object({
+  data: z.array(productResponseSchema),
+  meta: paginationMetaSchema,
+})
+
 export const createProductSchema = z.object({
   name: z.string().min(4),
   price: z.coerce.number().positive(),
