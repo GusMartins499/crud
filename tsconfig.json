@@ -4,6 +4,8 @@
   "_version": "24.0.0",
 
   "compilerOptions": {
+    "resolvePackageJsonImports": true,
+    "resolveJsonModule": true,
     "lib": [
       "es2024",
       "ESNext.Array",
