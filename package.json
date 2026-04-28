@@ -9,6 +9,7 @@
     "db:seed": "tsx src/db/seed.ts",
     "test:unit": "vitest run --dir tests/unit",
     "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "coverage": "vitest run --coverage"
   },
   "license": "MIT",
@@ -16,8 +17,10 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
     "@types/node": "^25.6.0",
+    "@types/supertest": "^7.2.0",
     "@vitest/coverage-v8": "^4.1.5",
     "drizzle-kit": "^0.31.10",
+    "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"

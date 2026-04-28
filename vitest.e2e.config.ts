@@ -9,7 +9,7 @@ export default defineConfig({
     },
     globalSetup: ['tests/global-setup.ts'],
     setupFiles: ['tests/setup.ts'],
-    include: ['tests/integration/**/*.spec.ts'],
+    include: ['tests/e2e/**/*.spec.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
