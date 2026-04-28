@@ -4,14 +4,8 @@ import { app } from '../../src/app.js'
 import { db } from '../../src/db/connection.js'
 import { productsTable } from '../../src/db/schema/index.js'
 
-//let serverUrl: string
-
 beforeAll(async () => {
   await app.ready()
-  /*   serverUrl = await app.listen({
-    port: 0,
-    host: '127.0.0.1',
-  }) */
 })
 
 afterAll(async () => {
