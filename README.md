@@ -5,6 +5,12 @@
 A simple API for managing products and their respective prices.  
 This project is part of a personal roadmap to grow from a **Junior to Mid-level developer**.
 
+- [x] Saber fazer CRUD
+- [x] Saber usar algum banco SQL
+- [x] Testes unitários/E2E
+- [x] Alguma arquitetura simples
+- [x] Documentar APIs
+- [x] Git e github básicos
 ---
 
 ## Features
